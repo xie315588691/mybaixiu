@@ -29,7 +29,8 @@
           </div>
           <div class="form-group">
             <label for="password">密码</label>
-            <input id="password" v-model="password" class="form-control" name="password" type="text" placeholder="密码">
+            <input id="password" v-model="formData.password" class="form-control" name="password" type="text"
+                   placeholder="密码">
           </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">添加</button>
@@ -63,7 +64,7 @@
             <td>{{item.nickname}}</td>
             <td>{{item.status}}</td>
             <td class="text-center">
-              <a href="post-add.php" class="btn btn-default btn-xs">编辑</a>
+              <a @click.prevent="handleEditUserClick(item.id)" href="javascript:;" class="btn btn-default btn-xs">编辑</a>
               <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
             </td>
           </tr>
@@ -92,13 +93,20 @@
       }
     },
     created() {
-      axios.get('http://localhost:3000/user').then(res => this.list = res.data)
-      //const res = await axios.get('http://localhost:3000/user');
-      //this.list = res.data
+      this.findAll()
     },
     methods: {
       add() {
         console.log("aa");
+      },
+      async findAll() {
+        const res = await axios.get('http://localhost:3000/user');
+        this.list = res.data
+      },
+      async handleEditUserClick(id) {
+        const {data} = await axios.get(`http://localhost:3000/user?id=${id}`);
+        console.log(data);
+        this.formData = data[0]
       }
     }
   }
