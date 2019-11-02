@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "jquery": "^1.9.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "vue": "^2.5.11",
     "vue-router": "^3.0.6"
   },
